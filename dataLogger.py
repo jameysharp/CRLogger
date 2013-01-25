@@ -12,7 +12,8 @@ logName = const.logName
 
 def resumeCheck():
     """This looks for the highest 'id' in the database and returns the tell associated 
-    with it."""
+    with it.  This may be imporved by adding an index to the id field, but I'm really
+    not sure."""
     try:
         entry = LogData.objects.latest('id')
     except LogData.DoesNotExist:
@@ -20,6 +21,7 @@ def resumeCheck():
     return entry.tellMarker
 
 def logDataCheck(startPos):
+    """Need to modify this to act inside of a loop.  Will get to that later."""
     with open(logName, 'r') as f:
         f.seek(startPos)
         nextLines = list(islice(f, const.numLines))
@@ -30,13 +32,14 @@ def logDataCheck(startPos):
         writeData(startPos, pData.processData(nextLines))
             
 def writeData(tell, data):
+    """Writes the data to the db in block.  A single write for all lines."""
     with transaction.commit_on_success():
         for d in data:
             entry = LogData(tellMarker = tell, processData = d)
             entry.save()
 
 if __name__ == '__main__':
-    #add some random lines to the log file
+    #add some random lines to the log file and test resume
     import random
     random.seed()
     with open(logName, 'a+') as f:

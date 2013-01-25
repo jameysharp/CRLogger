@@ -15,7 +15,7 @@ def resumeCheck():
     with it."""
     try:
         entry = LogData.objects.latest('id')
-    except ObjectDoesNotExist:
+    except LogData.DoesNotExist:
         return 0
     return entry.tellMarker
 
