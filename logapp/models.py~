@@ -1,0 +1,9 @@
+from django.db import models
+
+class LogData(models.Model):
+    id = models.AutoField(db_index = True, primary_key = True)
+    tellMarker = models.IntegerField()
+    processData = models.IntegerField()
+
+    def __unicode__(self):
+        return unicode(self.processData)

@@ -1,0 +1,11 @@
+django operational relational model (orm)
+python
+test with SQLlite
+
+-create a system that assumes it has crashed or exited in some way
+-find the ".tell" (current position in the file) that has been stored
+-seek to that position
+-process the additional data (process doesn't do shit)
+-write that and the ".tell" to the database in a transaction
+-die a horrible death
+
