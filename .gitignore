@@ -1,2 +1,3 @@
 *~
 *.pyc
+/logger/sqlite3.db
